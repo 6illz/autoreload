@@ -1,0 +1,19 @@
+_G.AutoReload = true -- Change to false if you don't want it anymore
+
+while _G.AutoReload and game:GetService("RunService").Heartbeat:Wait() do
+    local player = game:GetService("Players").LocalPlayer
+    local character = player.Character
+
+    if character then
+        local tool = character:FindFirstChildWhichIsA("Tool")
+        if tool then
+            local ammo = tool:FindFirstChild("Ammo")
+            if ammo and ammo:IsA("IntValue") then
+                if ammo.Value <= 0 then
+                    game:GetService("ReplicatedStorage").MainEvent:FireServer("Reload", tool)
+                    wait(1) -- Adjust the wait time as needed
+                end
+            end
+        end
+    end
+end
